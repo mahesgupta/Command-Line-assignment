@@ -107,8 +107,19 @@ done
 
 echo "Enter the number -"  
 *Taking the input*  
-read n  
-i=2  
+read n    
+*Checks and prints message "No input entered" if the user provides no input*   
+if [[ -z "$n" ]]; then   
+   echo "No input entered"  
+   exit 1  
+fi    
+
+re='^[0-9]+$'  
+if ! [[ $n =~ $re ]] ; then  
+	echo "Not a number, invalid input";  
+	exit 1  
+fi  
+i=2     
 
 *flag , it will change into 1 if n will be not a prime number*  
 flag=0  
@@ -133,8 +144,11 @@ fi
 
 ## Explanation:  
 ● Used echo command prompting the user to enter the number, which the user wishes to find out if it is prime or not.  
-● Used read command to read user input into a variable n.     
-● Used a for loop, initializing i as 2, iterating over i from 2 through n/2.  
+● Used read command to read user input into a variable n.   
+● Used -z switch to test if the expansion of "$n" is a null string or not. If it is a null string then the body is executed.    
+● Defined a string re to used as a regular expression to check whether input is valid number or not.  
+● re='^[0-9]+$', this regex ensures that the input string starts with a number, a number in between and also ends with a number; disallows any other   character.  
+● Used a for loop, initializing i as 2, iterating over i from 2 through n/2.    
 ● Stored remainder of n%i in the variable ans inside the loop.  
 ● Placed a check to display the number isn't prime if the value equals 1.   
 ● If ans equalled 0, displayed the number isn't prime; exits with status of 0, indicating normal, error-free exit.  
